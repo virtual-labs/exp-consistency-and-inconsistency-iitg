@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Start of experiment</title>
+
+<style>
+.button {
+    background-color: green;
+    border: none;
+    color: white;
+    <!--padding: 15px 32px;-->
+    text-align: center;
+	width:60px;
+    height:60px;
+	
+    text-decoration: none;
+    display: inline-block;
+    font-size: 25px;
+    margin: 4px 2px;
+    cursor: pointer;
+	border-radius: 20%;
+	box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+}
+.button1 {
+    background-color:red;
+    border: none;
+    color: white;
+    <!--padding: 15px 32px;-->
+    text-align: center;
+	width:60px;
+    height:60px;
+	
+    text-decoration: none;
+    display: inline-block;
+    font-size: 25px;
+    margin: 4px 2px;
+    cursor: pointer;
+	border-radius: 20%;
+	box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+}
+</style>
+
+</head>
+<body style='background-color:yellow;'>
+<h1>Start of experiment..</h1>
+<!--<h2>tough</h2>-->
+<canvas id="myCanvas" width="1000" height="450"
+style="border:1px solid black; background-color:white;">
+Your browser does not support the canvas element.
+</canvas>
+
+<script>
+var interval;
+var count;
+var x=20;
+
+var ar=[];
+
+var mark=2;
+
+var border_draw=1;
+
+var prev;
+
+//to display start or stop.
+var command="";
+
+var c1="green";
+var c1="green";
+var c2="red";
+var cons=[0,0,0,0,0,0,0,0];
+
+var consistency=0;
+var inconsistency=0;
+var rajdeep;
+
+// it is for color symbol..
+var j=100;
+
+var start_react=0;
+var stop_react=0;
+
+var allow=0;
+
+//it is for selecting how much time will it take firstly for first start to display.
+var selecti=(Math.floor(Math.random()*500));
+
+ar[0]=1000;
+ar[1]=1000+(Math.floor(Math.random()*400));
+ar[2]=ar[1]+(Math.floor(Math.random()*400));
+ar[3]=ar[2]+(Math.floor(Math.random()*400));
+ar[4]=ar[3]+(Math.floor(Math.random()*400));
+ar[5]=ar[4]+(Math.floor(Math.random()*400));
+ar[6]=ar[5]+(Math.floor(Math.random()*400));
+ar[7]=ar[6]+(Math.floor(Math.random()*400));
+
+
+//
+cons[0]=0;
+cons[1]=0;
+cons[2]=0;
+cons[3]=0;
+
+
+var i;
+
+
+
+
+// It is for drawing the border just once and to avoid flickering.....
+
+var y=245;
+
+var crun=0;
+
+var canvas = document.getElementById("myCanvas");
+var ctx = canvas.getContext("2d");
+
+ctx.font = "40px Arial";
+
+var my_pic = new Image();
+my_pic.src = "car.png";
+
+//count for selection..
+var counts=0;
+
+var b_pic = new Image();
+b_pic.src = "b.png";
+
+//counter for transition
+var trans=2;
+
+var retain;
+//ctx.font = "40px Arial";
+
+var stop=0;
+var start=0;
+
+var c_error=0;
+var ic_error=0;
+
+//canvas.width  = canvas.scrollWidth;
+//canvas.height = canvas.scrollHeight;
+function stop_car()
+{
+
+stop=1;
+start=0;
+
+mark=0;
+//prev=0;
+//alert("command"+command);
+//alert("ctx.fillstyle"+ctx.fillStyle);
+if(command=="start")
+{
+	if(j==1)
+  {
+	c_error=c_error+1;
+	alert("cerror"+c_error);
+  }
+  else if(j==2)
+  {
+	ic_error=ic_error+1;
+  }
+}
+
+}
+
+function move_car()
+{
+
+start=1;
+stop=0;
+
+mark=1;
+
+if(command=="stop")
+{
+  if(j==4)
+  {
+	ic_error=ic_error+1;
+  }
+  else if(j==3)
+  {
+	c_error=c_error+1;
+	
+	//alert("incons"+ic_error);
+	}
+}
+
+//prev=1;
+//alert(selecti);
+//alert(count>=selecti);
+//alert("count"+count);
+//alert(ar[0]+" "+ar[1]+" "+ar[2]+" "+ar[3]);
+}
+
+
+
+
+count=0;
+
+
+
+
+interval=setInterval(function(){
+count=count+1;
+
+
+
+// storing the value of count for each session.....
+counts=counts+1;
+
+//it is for clearing the text in canvas area...
+ctx.fillStyle="white";
+ctx.fillRect(200,50,200,100);
+
+//
+if(border_draw==1)
+{
+	ctx.drawImage(b_pic, 0, 180);
+	ctx.drawImage(b_pic, 0, 390);
+	// to stop border draw..
+	//border_draw=0;
+}
+//ctx.clearRect(200,150,100,50);
+
+// start==1 && stop==0 ---> is for moving the car.
+if(start==1&&stop==0)
+{
+  if(count%100==0)
+  {
+	x=x+5;
+  }
+}
+
+// it is for the first time display of start in green ......
+if(counts<=1000)
+{
+	command="start";
+
+	if((allow==0) && (counts>=selecti))
+	{
+	
+		ctx.fillStyle = c1;
+		j=1;
+		
+		if(mark!=1)
+		{
+		  start_react=start_react+1;
+		}
+		
+			
+		//it is for drawing the start button..
+		ctx.fillText(command,200,100);
+	}
+	if(crun==0)
+	{
+		ctx.fillStyle="white";
+		ctx.fillRect(x-30,y,250,100);
+
+		//ctx.clearRect(x,y,100,100);
+		ctx.drawImage(my_pic, x, y);
+	}
+	if(counts==1000)
+	{
+		// it is for showing stop sign.
+		allow=1;
+		i=0;
+		
+		//alert(start_react);
+		//cons[0]=start_react;
+		
+		
+		if(mark==1)
+			{
+			
+				cons[0]=cons[0]+start_react;
+			
+			}
+			else
+			{
+			cons[0]=0;
+			}
+			
+			start_react=0;
+		
+		//start_react=0;
+		
+		retain=c2;
+		
+	}
+
+}
+
+
+// for rest of the starts dyanamic way.
+else if(counts>ar[i] && counts<=ar[i+1] && allow==0)
+{
+
+	command="start";
+
+	if(allow==0) 
+	{
+	
+		ctx.fillStyle = retain;
+		
+		if(mark!=1)
+		{
+			if(ctx.fillStyle=="green")
+				{
+					j=1;
+					start_react=start_react+1;
+				}
+				
+			else
+				{
+					j=2;
+					start_react=start_react+1;
+				}
+		}
+		//it is for drawing the start button..
+		ctx.fillText(command,200,100);
+	}
+	if(crun==0)
+	{
+		ctx.fillStyle="white";
+		ctx.fillRect(x-30,y,250,100);
+
+		//ctx.clearRect(x,y,100,100);
+		ctx.drawImage(my_pic, x, y);
+	}
+	if(counts==ar[i+1])
+	{
+		// it is for showing stop sign.
+		
+		if(mark==1)
+			{
+			
+				cons[i+1]=cons[i+1]+start_react;
+			
+			}
+			else
+			{
+			cons[i+1]=0;
+			}
+			
+			start_react=0;
+		
+		
+		
+		
+		
+		
+		allow=1;
+		i=i+1;
+		if(retain==c2)
+		{
+		
+		
+		   retain=c1;
+		}
+		else
+		{
+			retain=c2;
+		}
+		
+	}
+
+}
+
+
+// stop ... purpose
+else if (counts>ar[i] && counts<=ar[i+1] && allow==1)
+{
+
+command="stop";
+//if(count>=selecti)
+if(allow==1)
+{
+	
+	ctx.fillStyle = retain;
+	
+	if(mark!=0)
+		{
+			if(ctx.fillStyle=="red")
+				{
+					j=3;
+					stop_react=stop_react+1;
+				}
+			else
+				{
+					j=4;
+					stop_react=stop_react+1;
+				}
+		}
+	
+	//it is for drawing the stop button..
+	ctx.fillText(command,200,100);
+}
+if(crun==0)
+{
+	ctx.fillStyle="white";
+	ctx.fillRect(x-30,y,250,100);
+	//ctx.clearRect(x,y-50,100,200);
+	ctx.drawImage(my_pic, x, y);
+	
+}
+//ctx.fillRect(200,50,200,100);
+
+
+	if(counts==ar[i+1])
+	{
+		
+		allow=0;
+		if(i==0)
+		{
+			
+			retain=c2;
+			
+			if(mark==0)
+			{
+			
+				cons[1]=cons[1]+stop_react;
+			
+			}
+			else
+			{
+			  cons[1]=0;
+			}
+			
+			stop_react=0;
+			
+		}
+		else if(i==2)
+		{
+		    retain=c1;
+			
+			if(mark==0)
+			{
+			
+				cons[3]=cons[3]+stop_react;
+			
+			}
+			else
+			{
+			  cons[3]=0;
+			}
+			
+			stop_react=0;
+			
+		}
+		else if(i==4)
+		{
+			retain=c2;
+			
+			if(mark==0)
+			{
+			
+				cons[5]=cons[5]+stop_react;
+			
+			}
+			else
+			{
+			  cons[5]=0;
+			}
+			
+			stop_react=0;
+		}
+		else if (i==6)
+		{
+		//calculations will be shown here ...
+		if(mark==0)
+			{
+			
+				cons[7]=cons[7]+stop_react;
+			
+			}
+			else
+			{
+			  cons[7]=0;
+			}
+			
+			stop_react=0;
+		//alert("Final alert");
+		//alert("rajdeep="+rajdeep);
+		//alert(cons[0]+" | "+cons[1]+" | "+cons[2]+" | "+cons[3]+" | "+cons[4]+" | "+cons[5]+" | "+cons[6]+" | "+cons[7]);
+		//alert("cons:"+c_error+"incons:"+ic_error);
+		consistency=(cons[0]+cons[1]+cons[4]+cons[5])/4;
+		inconsistency=(cons[2]+cons[3]+cons[6]+cons[7])/4;
+		
+		//alert("consistency="+consistency);
+		//alert("inconsistency="+inconsistency);
+		
+		
+		localStorage.clear();
+		localStorage.setItem("key1",consistency);
+		localStorage.setItem("key2",inconsistency);
+		localStorage.setItem("key3",c_error);
+		localStorage.setItem("key4",ic_error);
+		
+		window.location="final.html";
+		}
+		//alert("i="+i);
+		i=i+1;
+		
+		
+		
+		
+	}
+
+}
+
+
+
+
+	
+},1);
+	
+	
+	
+	
+</script>
+<p>
+<input type="button" class="button1" value="OFF" onclick="stop_car();" />
+<input type="button" class="button" value="ON" onclick="move_car();" />
+</p>
+</body>
+</html>

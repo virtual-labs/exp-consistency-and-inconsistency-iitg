@@ -1,0 +1,76 @@
+<!--Here the output will be displayed.-->
+<! DOCTYPE html>
+<html>
+<head>
+<title>Displaying Page...</title>
+
+<style>
+.button {
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+	width:130px;
+    height: 130px;
+	
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+	border-radius: 100%;
+	box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+}
+</style>
+
+<script type="text/javascript">
+
+			//document.write(localStorage.key1);
+			//document.write("<br/>");
+			//document.write(localStorage.key2);
+			
+         
+            function Redirect() {
+               window.location="redirect.html";
+            }
+         
+      </script>
+
+
+</head>
+<body>
+<!--<script>
+document.write(localStorage.key1);
+document.write("<br/>");
+document.write(localStorage.key2);
+</script> -->
+
+<form style='border:2px solid black;'>
+
+		 <p>The results of the simulation can be summated as:-<br/><br/>
+		 During consistency:<br/>
+		 No. of errors=<script>document.write(localStorage.key3);</script>
+		 <br/>Reaction time= <script>document.write(localStorage.key1);</script>&nbspmilliseconds
+		 <br/>
+		 <br/>
+		 During inconsistency:<br/>
+		 No. of errors=<script>document.write(localStorage.key4);</script>
+		 <br/>Reaction time= <script>document.write(localStorage.key2);</script>&nbspmilliseconds
+		 <br/>
+		 <br/>
+		 To restart the experiment continue click on the 'Restart' button in the right button.
+		 
+		 
+		 <p align='center'>
+         <!-- thoda  variation hai--> 
+		 <input type="button" class="button" value="RESTART" onclick="Redirect();" />
+		 </p>
+		 </p>
+
+</form>
+
+
+
+</body>
+</html>
